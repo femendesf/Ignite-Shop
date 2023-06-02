@@ -3,7 +3,19 @@
 @tailwind utilities;
 
 @layer base{
-    html{
-        @apply text-7xl
+    body{
+        @apply antialiased bg-gray900 text-gray100
     }
+
+    body,
+    input,
+    textarea,
+    buttom{
+        @apply font-Roboto
+    }
+
+    #link:hover footer{
+        @apply translate-y-0 opacity-100
+    }
+    
 }

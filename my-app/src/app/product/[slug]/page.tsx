@@ -6,6 +6,6 @@ interface ProductProps{
 
 export default function Products({params} : ProductProps){
     return(
-        <h1>Product: ${params.slug}</h1>
+        <h1>Product: {params.slug}</h1>
     )
 }
