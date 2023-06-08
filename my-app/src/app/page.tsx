@@ -1,82 +1,47 @@
-import Link from "next/link"
-import Image from "next/image"
+'use client'
 
-import camiseta1 from '../assets/Shirt/1.png'
-import camiseta2 from '../assets/Shirt/2.png'
-import camiseta3 from '../assets/Shirt/3.png'
+import { stripe } from "@/lib/stripe"
 
-export default function Home() {
-  return (
-    <main
-    className="
-      flex
-      gap-12 
-      w-[calc(100vw-((100vw-1180px)/2))]
-      ml-auto
-      min-h-[656px]
-   
-     "
-    >
+import Stripe from "stripe"
+import { Carrousel } from "../components/Carrousel"
+import { useState } from "react"
 
-      <Link href='' 
-        className="
-          bg-gradient-to-b from-[#1ea483_0%] to-[#7465d4_100%]
-          rounded-lg
-          p-1
-          relative
-          overflow-hidden
-          flex
-          items-center
-          justify-center
-         
-        "
-        id="link"
-      >
+interface HomeProps {
 
-        <Image src={camiseta1} alt="" width={520} height={480} className="object-cover"/>
+  id: string;
+  name: string;
+  imageUrl: string;
+  price: number | null ;
 
-          <footer 
-            className="
-              absolute
-              bottom-1
-              left-1
-              right-1
-              rounded-md
-              p-8
-              flex
-              items-center
-              justify-between
-              translate-y-full
-              opacity-0
-              transition-all
-              transition-transform-[0.2s]
-              ease-out
-              bg-black
-              bg-opacity-50
-
-              hover:translate-y-0
-              hover:opacity-100
-            ">
-
-            <strong className="text-lg">Camiseta X</strong>
-
-            <span className="text-xl text-green500 font-bold">R$ 79,90</span>
-
-          </footer>
-
-      </Link>
-       
-      <Link href='' className="bg-gradient-to-b from-[#1ea483_0%] to-[#7465d4_100%]">
-        
-        <Image src={camiseta2} alt="" width={520} height={480}/>
-        <footer>
-          <strong>Camiseta X</strong>
-          <span>R$ 79,90</span>
-        </footer>
-      </Link>  
-
-      
-    </main>
-  )
 }
+
+export default async function Home() {
+
+  const [productsData, setProductsData] = useState<HomeProps[]>([])
+ 
+  const fetchProducts = async () => {
+    
+    const response = await stripe.products.list({
+      expand: ['data.default_price']
+    });
+
+    const products= response.data.map(product => {
+      const price = product.default_price as Stripe.Price;
+
+      return {
+        id: product.id,
+        name: product.name,
+        imageUrl: product.images[0],
+        price: price.unit_amount
+      };
+    });
+
+    setProductsData(products);
+  };
+    
   
+  return (
+    <Carrousel products={productsData}/>
+  )
+  
+}
