@@ -2,25 +2,29 @@
 
 import Link from "next/link"
 import Image from "next/image"
+
 import { useKeenSlider } from 'keen-slider/react'
 import 'keen-slider/keen-slider.min.css'
 
 import camiseta1 from '../assets/Shirt/1.png' 
+import { useState } from "react"
 
-interface CarrouselProps {
-  products: {
-    id: string;
-    name: string;
-    imageUrl: string;
-    price: number | null;
-  }[];
+interface Product {
+  id: string; 
+  name: string;
+  imageUrl: string;
+  price: number | null;
 }
 
-export function Carrousel(props: CarrouselProps) {
-  const { products } = props;
 
-  console.log(products)
-  
+export function Carrousel(props : Product) {
+
+ //const [listProducts, setListProducts] = useState<CarrouselProps[]>([])
+
+  //console.log(JSON.stringify(props))
+
+  console.log(props.id)
+
   const [sliderRef] = useKeenSlider({
     slides: {
       perView: 3,
@@ -39,7 +43,8 @@ export function Carrousel(props: CarrouselProps) {
         min-h-[656px]
       "
     >
-      {products.map((product) => (
+      
+      {/*props.map((product) => (
         <Link href="" className="keen-slider__slide" key={product.id}>
           <div
             className="
@@ -82,7 +87,7 @@ export function Carrousel(props: CarrouselProps) {
             </footer>
           </div>
         </Link>
-      ))}
+      ))*/}
     </main>
   );
 }
