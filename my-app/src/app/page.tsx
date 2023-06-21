@@ -1,17 +1,7 @@
-'use client'
-
-
 import { Carrousel } from "../components/Carrousel"
 
 import { stripe } from "@/lib/stripe"
 import Stripe from "stripe"
-
-interface ProductsProps {
-  id: string; 
-  name: string;
-  imageUrl: string;
-  price: number | null;
-}
 
 export default async function Home() {
   
@@ -19,7 +9,7 @@ export default async function Home() {
     expand: ['data.default_price']
   });
 
-  const products: ProductsProps[] = response.data.map(product => {
+  const products = response.data.map(product => {
 
     const price = product.default_price as Stripe.Price;
 
@@ -31,12 +21,15 @@ export default async function Home() {
     };
   });
 
-  console.log(products[0])
+  console.log(products)
   
   return (
-    <div>
-      {/*@ts-expect-error Async Server Component*/}
-      <Carrousel prop={products}/>
-    </div>
+      <>
+      
+      <Carrousel products={products}/>
+      </>
+      
+      
+    
   )
 }

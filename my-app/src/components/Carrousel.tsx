@@ -7,7 +7,6 @@ import { useKeenSlider } from 'keen-slider/react'
 import 'keen-slider/keen-slider.min.css'
 
 import camiseta1 from '../assets/Shirt/1.png' 
-import { useState } from "react"
 
 interface Product {
   id: string; 
@@ -16,14 +15,13 @@ interface Product {
   price: number | null;
 }
 
+interface CarrouselProps {
+  products: Product[];
+}
 
-export function Carrousel(props : Product) {
+export function Carrousel({ products }: CarrouselProps) {
 
- //const [listProducts, setListProducts] = useState<CarrouselProps[]>([])
-
-  //console.log(JSON.stringify(props))
-
-  console.log(props.id)
+  console.log(products)
 
   const [sliderRef] = useKeenSlider({
     slides: {
@@ -44,8 +42,8 @@ export function Carrousel(props : Product) {
       "
     >
       
-      {/*props.map((product) => (
-        <Link href="" className="keen-slider__slide" key={product.id}>
+      {products.map((product) => (
+        <Link href="" className="keen-slider__slide">
           <div
             className="
               bg-gradient-to-b from-[#1ea483_0%] to-[#7465d4_100%]
@@ -57,7 +55,7 @@ export function Carrousel(props : Product) {
               justify-center
             "
           >
-            <Image src={camiseta1} alt="" width={520} height={480} className="object-cover" />
+            <Image src={product.imageUrl} alt="" width={520} height={480} className="object-cover" />
 
             <footer
               className="
@@ -87,7 +85,7 @@ export function Carrousel(props : Product) {
             </footer>
           </div>
         </Link>
-      ))*/}
+      ))}
     </main>
   );
 }
