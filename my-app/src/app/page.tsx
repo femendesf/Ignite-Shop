@@ -24,12 +24,6 @@ export default async function Home() {
   console.log(products)
   
   return (
-      <>
-      
-      <Carrousel products={products}/>
-      </>
-      
-      
-    
+    <Carrousel products={products}/>
   )
 }

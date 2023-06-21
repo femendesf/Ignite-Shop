@@ -42,50 +42,55 @@ export function Carrousel({ products }: CarrouselProps) {
       "
     >
       
-      {products.map((product) => (
-        <Link href="" className="keen-slider__slide">
-          <div
-            className="
-              bg-gradient-to-b from-[#1ea483_0%] to-[#7465d4_100%]
-              rounded-lg
-              relative
-              overflow-hidden
-              flex
-              items-center
-              justify-center
-            "
-          >
-            <Image src={product.imageUrl} alt="" width={520} height={480} className="object-cover" />
-
-            <footer
+      {products.map((product) =>(
+          <Link href="" className="keen-slider__slide" id="link">
+            <div
               className="
-                absolute
-                bottom-1
-                left-1
-                right-1
-                rounded-md
-                p-8
+                bg-gradient-to-b from-[#1ea483_0%] to-[#7465d4_100%]
+                rounded-lg
+                relative
+                overflow-hidden
                 flex
                 items-center
-                justify-between
-                translate-y-full
-                opacity-0
-                transition-all
-                transition-transform-[0.2s]
-                ease-out
-                bg-black
-                bg-opacity-50
-
-                hover:translate-y-0
-                hover:opacity-100
+                justify-center
               "
             >
-              <strong className="text-lg">{product.name}</strong>
-              <span className="text-xl text-green500 font-bold">{product.price}</span>
-            </footer>
-          </div>
-        </Link>
-      ))}
+              <Image src={product.imageUrl} alt="" width={520} height={480} className="object-cover" />
+  
+              <footer
+                className="
+                  absolute
+                  bottom-1
+                  left-1
+                  right-1
+                  rounded-md
+                  p-8
+                  flex
+                  items-center
+                  justify-between
+                  whitespace-nowrap
+                  translate-y-full
+                  opacity-0
+                  transition-all
+                  transition-transform-[0.2s]
+                  ease-out
+                  bg-black
+                  bg-opacity-50
+                  gap-5
+          
+                  hover:translate-y-0
+                  hover:opacity-100
+                "
+              >
+                <strong className="text-lg ">{product.name}</strong>
+                {product.price !== null && (
+                  <span className="text-xl text-green500 font-bold">R$ {(product.price/100).toFixed(2)}</span>
+                )}
+              </footer>
+            </div>
+          </Link>
+        )
+      )}
     </main>
   );
 }

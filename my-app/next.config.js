@@ -1,14 +1,16 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+    reactStrictMode: true,
+    swcMinify: true,
+    optimizeFonts: true,
     images: {
         remotePatterns: [
           {
             protocol: 'https',
             hostname: 'files.stripe.com',
-            port: '3000/',
-            pathname: '/**',
           },
         ],
+        minimumCacheTTL:1500000
       },
 }
 
