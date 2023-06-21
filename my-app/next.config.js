@@ -4,13 +4,9 @@ const nextConfig = {
     swcMinify: true,
     optimizeFonts: true,
     images: {
-        remotePatterns: [
-          {
-            protocol: 'https',
-            hostname: 'files.stripe.com',
-          },
-        ],
-        minimumCacheTTL:1500000
+       domains:[
+        'files.stripe.com'
+       ]
       },
 }
 

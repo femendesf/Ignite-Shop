@@ -1,13 +1,19 @@
 import { Carrousel } from "../components/Carrousel"
 
 import { stripe } from "@/lib/stripe"
+import next from "next/types";
+
 import Stripe from "stripe"
+
+export const revalidate = 60 * 60 * 2
 
 export default async function Home() {
   
-  const response = await stripe.products.list({
-    expand: ['data.default_price']
-  });
+  const response = await stripe.products.list(
+    {expand: ['data.default_price']}
+  );
+
+  console.log(response)
 
   const products = response.data.map(product => {
 
@@ -21,8 +27,6 @@ export default async function Home() {
     };
   });
 
-  console.log(products)
-  
   return (
     <Carrousel products={products}/>
   )

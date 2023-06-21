@@ -6,8 +6,6 @@ import Image from "next/image"
 import { useKeenSlider } from 'keen-slider/react'
 import 'keen-slider/keen-slider.min.css'
 
-import camiseta1 from '../assets/Shirt/1.png' 
-
 interface Product {
   id: string; 
   name: string;
@@ -21,13 +19,11 @@ interface CarrouselProps {
 
 export function Carrousel({ products }: CarrouselProps) {
 
-  console.log(products)
-
   const [sliderRef] = useKeenSlider({
     slides: {
       perView: 3,
-      spacing: 48
-    }
+      spacing: 48,
+    },
   });
 
   return (
@@ -69,6 +65,7 @@ export function Carrousel({ products }: CarrouselProps) {
                   items-center
                   justify-between
                   whitespace-nowrap
+
                   translate-y-full
                   opacity-0
                   transition-all
@@ -82,9 +79,9 @@ export function Carrousel({ products }: CarrouselProps) {
                   hover:opacity-100
                 "
               >
-                <strong className="text-lg ">{product.name}</strong>
+                <strong className="text-lg max-[1360px]:text-[16px] ">{product.name}</strong>
                 {product.price !== null && (
-                  <span className="text-xl text-green500 font-bold">R$ {(product.price/100).toFixed(2)}</span>
+                  <span className="text-xl max-[1360px]:text-[18px] text-green500 font-bold">R$ {(product.price/100).toFixed(2)}</span>
                 )}
               </footer>
             </div>
