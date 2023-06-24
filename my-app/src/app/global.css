@@ -4,7 +4,7 @@
 
 @layer base{
     body{
-        @apply antialiased bg-gray900 text-gray100
+        @apply antialiased bg-gray900 text-gray100 box-border
     }
 
     body,

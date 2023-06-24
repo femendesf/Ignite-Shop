@@ -7,5 +7,4 @@ export const stripe = new Stripe(secretKey as string, {
     appInfo:{
         name:'Ignite Shop'
     },
-    
 })

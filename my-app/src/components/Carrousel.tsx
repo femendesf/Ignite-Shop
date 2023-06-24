@@ -39,7 +39,7 @@ export function Carrousel({ products }: CarrouselProps) {
     >
       
       {products.map((product) =>(
-          <Link href="" className="keen-slider__slide" id="link">
+          <Link href={`/products/${product.id}`} className="keen-slider__slide" id="link">
             <div
               className="
                 bg-gradient-to-b from-[#1ea483_0%] to-[#7465d4_100%]
@@ -49,6 +49,7 @@ export function Carrousel({ products }: CarrouselProps) {
                 flex
                 items-center
                 justify-center
+                min-h-[56px]
               "
             >
               <Image src={product.imageUrl} alt="" width={520} height={480} className="object-cover" />
@@ -65,6 +66,7 @@ export function Carrousel({ products }: CarrouselProps) {
                   items-center
                   justify-between
                   whitespace-nowrap
+                  gap-2
 
                   translate-y-full
                   opacity-0
@@ -73,7 +75,7 @@ export function Carrousel({ products }: CarrouselProps) {
                   ease-out
                   bg-black
                   bg-opacity-50
-                  gap-5
+                 
           
                   hover:translate-y-0
                   hover:opacity-100
@@ -81,7 +83,7 @@ export function Carrousel({ products }: CarrouselProps) {
               >
                 <strong className="text-lg max-[1360px]:text-[16px] ">{product.name}</strong>
                 {product.price !== null && (
-                  <span className="text-xl max-[1360px]:text-[18px] text-green500 font-bold">R$ {(product.price/100).toFixed(2)}</span>
+                  <span className="text-xl max-[1360px]:text-[18px] text-green500 font-bold">{(product.price/100).toLocaleString('pt-BR' , {style: 'currency' , currency: 'BRL'})}</span>
                 )}
               </footer>
             </div>
