@@ -5,7 +5,6 @@ export async function POST(req: NextApiRequest, res: NextApiResponse){
 
     const priceId = 'prod_O29znkIIAFkfD0'
     const sucessUrl = `${process.env.NEXT_URL}/success`
-
     
     const checkoutSession =  await stripe.checkout.sessions.create({
         success_url: sucessUrl,
@@ -18,7 +17,7 @@ export async function POST(req: NextApiRequest, res: NextApiResponse){
         ]
     })
 
-    return res.status(201).json({
-       checkoutUrl: checkoutSession.url
-    })
+   return res.status(201).json({
+    checkoutUrl: checkoutSession.url
+   })
 }

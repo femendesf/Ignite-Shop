@@ -21,10 +21,9 @@ interface ProductProps{
     }
 }
 export default async function Products({params} : PageProductProps){
-  
-   
-    const productId = params.slug
 
+    const productId = params.slug
+   
     const response = await stripe.products.retrieve(productId, {
         expand: ['default_price']
     })
@@ -41,11 +40,7 @@ export default async function Products({params} : PageProductProps){
             defaultPriceId: price.id
         },
     }
-
-    function handler(){
-        console.log(product.props.defaultPriceId)
-    }
-
+    
     return(
       <InfoProduct product={product.props}/>
     )
