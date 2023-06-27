@@ -1,11 +1,12 @@
 import { stripe } from "@/lib/stripe"
 import { NextApiRequest, NextApiResponse } from "next"
 
-export default async function PUT(req: NextApiRequest, res: NextApiResponse){
+export async function POST(req: NextApiRequest, res: NextApiResponse){
 
     const priceId = 'prod_O29znkIIAFkfD0'
     const sucessUrl = `${process.env.NEXT_URL}/success`
 
+    
     const checkoutSession =  await stripe.checkout.sessions.create({
         success_url: sucessUrl,
         mode: 'payment',
@@ -21,4 +22,3 @@ export default async function PUT(req: NextApiRequest, res: NextApiResponse){
        checkoutUrl: checkoutSession.url
     })
 }
-
