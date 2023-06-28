@@ -1,6 +1,8 @@
 'use client'
 
 import Image from "next/image"
+import axios from 'axios'
+import { useState } from "react";
 
 interface InfoProductProps{
     product:{
@@ -14,9 +16,34 @@ interface InfoProductProps{
 }
 export function InfoProduct({product}: InfoProductProps){
 
-    function handler(){
-        console.log(product.id)
+    // const exemplo: const router = useRouter()
+    const [isCreatingCheckoutSession, setIsCreatingCheckoutSession] = useState(false)
+
+    async function handlerBuyProduct(){
+        try{
+            const response =  await axios.post('/api/checkout', {
+                priceId: product.defaultPriceId
+            })
+
+            setIsCreatingCheckoutSession(true)
+
+            const {checkoutUrl} = response.data
+
+            window.location.href = checkoutUrl 
+
+            /*Como é uma rota externa, esta sendo usado o window.location.href
+                Caso fosse uma rota interna, teria que usar o useRouter e dar uma router.push
+
+                exemplo:
+
+                router.push('/checkout')
+            */
+        }catch(err){
+            alert(err)
+            setIsCreatingCheckoutSession(false)
+        }
     }
+
     return(
         <main 
         id="ProductContainer" 
@@ -90,6 +117,7 @@ export function InfoProduct({product}: InfoProductProps){
             </p>
 
             <button
+                disabled={isCreatingCheckoutSession}
                 className="
                     mt-auto
                     bg-green500
@@ -99,8 +127,13 @@ export function InfoProduct({product}: InfoProductProps){
                     text-md
 
                     hover:bg-green300
+
+                    disabled:bg-opacity-60
+                    disabled:cursor-not-allowed
                 "
-                onClick={handler}
+               
+                onClick={handlerBuyProduct}
+                
             >
                 Comprar agora
             </button>

@@ -1,8 +1,6 @@
-import Image from "next/image"
-
 import { stripe } from "@/lib/stripe"
 import Stripe from "stripe"
-import { InfoProduct } from "../comonents/InfoProduct"
+import { InfoProduct } from "../components/InfoProduct"
 
 interface PageProductProps{
     params:{
@@ -23,7 +21,7 @@ interface ProductProps{
 export default async function Products({params} : PageProductProps){
 
     const productId = params.slug
-   
+
     const response = await stripe.products.retrieve(productId, {
         expand: ['default_price']
     })
