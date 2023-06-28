@@ -5,8 +5,8 @@ import Image from 'next/image'
 import logoImage from "../assets/logo.svg"
 
 import './global.css'
-
-
+import Link from 'next/link'
+ 
 const robotoNormal = Roboto({
   weight: '400',
   subsets: ['latin']
@@ -24,7 +24,10 @@ export default function RootLayout({
         <div className='flex flex-col items-start justify-center min-h-[100vh] '>
           
           <header className='py-8 w-full max-w-[1180px] mx-auto'>
+            <Link href="/">
             <Image src={logoImage} alt="" width={130} height={50}/>
+            </Link>
+           
           </header>
           {children}
         </div>

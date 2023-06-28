@@ -46,16 +46,18 @@ export function InfoProduct({product}: InfoProductProps){
 
     return(
         <main 
-        id="ProductContainer" 
-        className="
-            grid
-            grid-cols-2
-            items-stretch
-            gap-16
-            max-w-[1180px]
-            mx-auto
-        "
-    >
+            id="ProductContainer" 
+            className="
+                grid
+                grid-cols-2
+                items-stretch
+                gap-16
+                max-w-[1180px]
+                mx-auto
+                max-[1520px]:p-16
+                max-[1520px]:mt-[-60px]
+            "
+        >
 
         <div
             id="ImageContainer"

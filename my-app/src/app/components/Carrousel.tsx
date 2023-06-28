@@ -39,7 +39,7 @@ export function Carrousel({ products }: CarrouselProps) {
     >
       
       {products.map((product) =>(
-          <Link href={`/products/${product.id}`} className="keen-slider__slide" id="link">
+          <Link href={`/products/${product.id}`} className="keen-slider__slide" id="link" key={product.id}>
             <div
               className="
                 bg-gradient-to-b from-[#1ea483_0%] to-[#7465d4_100%]

@@ -1,12 +1,17 @@
-import { Carrousel } from "../components/Carrousel"
+import { Carrousel } from "./components/Carrousel"
 
 import { stripe } from "@/lib/stripe"
 import Stripe from "stripe"
 
+import { Metadata } from 'next'
+
+export const metadata: Metadata = {
+  title: 'Home | Ignite-Shop',
+}
+
 export const revalidate = 60 * 60 * 2
 
 export default async function Home() {
-
  
   const response = await stripe.products.list(
     {expand: ['data.default_price']}
@@ -25,8 +30,8 @@ export default async function Home() {
       price: price.unit_amount,
     };
   });
-
+ 
   return (
-    <Carrousel products={products}/>
+      <Carrousel products={products}/>
   )
 }

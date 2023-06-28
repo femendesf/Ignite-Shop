@@ -1,45 +1,58 @@
 import { stripe } from "@/lib/stripe"
 import Stripe from "stripe"
 import { InfoProduct } from "../components/InfoProduct"
+import { Metadata } from "next"
 
-interface PageProductProps{
-    params:{
-        slug:string
+interface PageProductProps {
+  params: {
+    slug: string
+  }
+}
+
+interface ProductProps {
+  id: string;
+  name: string;
+  imageUrl: string;
+  price: number | null;
+  description: string | null;
+  defaultPriceId: string;
+}
+
+const fetchProducts = async ({ params }: PageProductProps): Promise<ProductProps> => {
+  const productId = params.slug
+
+  const response = await stripe.products.retrieve(productId, {
+    expand: ['default_price']
+  })
+
+  const price = response.default_price as Stripe.Price;
+
+  const product: ProductProps = {
+    id: response.id,
+    name: response.name,
+    imageUrl: response.images[0],
+    price: price.unit_amount,
+    description: response.description,
+    defaultPriceId: price.id
+  }
+
+  return product;
+}
+
+export async function generateMetadata({ params }: PageProductProps) {
+
+    const product = await fetchProducts({ params });
+
+    return{
+        title: `${product.name} | Ignite-Shop`
     }
 }
 
-interface ProductProps{
-    props:{
-        id: string; 
-        name: string;
-        imageUrl: string;
-        price: number | null;
-        description: string | null,
-        defaultPriceId: string
-    }
-}
-export default async function Products({params} : PageProductProps){
+export default async function Products({ params }: PageProductProps) {
 
-    const productId = params.slug
+  const product = await fetchProducts({ params }); // Call the function with the required argument and await the result
 
-    const response = await stripe.products.retrieve(productId, {
-        expand: ['default_price']
-    })
-
-    const price = response.default_price as Stripe.Price;
-
-    const product : ProductProps = {
-        props:{
-            id: response.id,
-            name: response.name,
-            imageUrl: response.images[0],
-            price: price.unit_amount,
-            description: response.description,
-            defaultPriceId: price.id
-        },
-    }
-    
-    return(
-      <InfoProduct product={product.props}/>
-    )
+  return (
+    <InfoProduct product={product} />
+  )
 }
