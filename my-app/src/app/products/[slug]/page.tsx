@@ -1,7 +1,6 @@
 import { stripe } from "@/lib/stripe"
 import Stripe from "stripe"
 import { InfoProduct } from "../components/InfoProduct"
-import { Metadata } from "next"
 
 interface PageProductProps {
   params: {

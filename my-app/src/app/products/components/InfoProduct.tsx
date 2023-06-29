@@ -95,7 +95,8 @@ export function InfoProduct({product}: InfoProductProps){
 
             {product.price !== null && (
                 <span
-                    className=" first-letter:
+                    className="
+                        first-letter:
                         mt-4
                         block
                         text-2xl

@@ -72,7 +72,6 @@ async function Success({searchParams} : SessionProp){
                     "
                 />
                     
-              
             </div>
 
             <p className="
