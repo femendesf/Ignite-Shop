@@ -53,15 +53,15 @@ const [loaded, setLoaded] = useState(false)
           className="
             keen-slider
             flex
-            max-w-[calc(100vw-((100vw-1180px)/2))]
             ml-auto
-            min-h-[656px]
+            min-h-[580px]
+            
           "
         >
         
           {products.map((product) =>(
               
-              <Link href={`/products/${product.id}`} className="keen-slider__slide" id="link" key={product.id}>
+              <Link href={`/products/${product.id}`} className="keen-slider__slide w-[560px]" id="link" key={product.id}>
                 <div
                   className="
                     bg-gradient-to-b from-[#1ea483_0%] to-[#7465d4_100%]
@@ -71,7 +71,7 @@ const [loaded, setLoaded] = useState(false)
                     flex
                     items-center
                     justify-center
-                    min-h-[56px]
+                   
                    
                   "
                 >

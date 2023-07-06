@@ -54,8 +54,9 @@ export function InfoProduct({product}: InfoProductProps){
                 gap-16
                 max-w-[1180px]
                 mx-auto
-                max-[1520px]:p-16
-                max-[1520px]:mt-[-60px]
+                max-[1520px]:w-[980px]
+                max-[1520px]:h-[480px]
+                
             "
         >
 
@@ -64,7 +65,7 @@ export function InfoProduct({product}: InfoProductProps){
             className="
                 w-full
                 max-w-[576px]
-                h-[656px]
+                min-[1520px]:h-[650px]
                 bg-gradient-to-b from-[#1ea483_0%] to-[#7465d4_100%]
                 rounded-lg
                 p-1

@@ -23,9 +23,9 @@ export default function RootLayout({
     <html lang="en">
       <body className={robotoNormal.className}>
 
-        <div className='flex flex-col items-start justify-center min-h-[100vh] '>
+        <div className='flex flex-col items-start justify-center mt-1'>
           
-          <header className='py-8 w-full max-w-[1180px] mx-auto flex justify-between items-center'>
+          <header className='py-8 px-[136px] w-full mx-auto flex justify-between items-center'>
             <Link href="/">
               <Image src={logoImage} alt="" width={130} height={50} className='min-[2200px]:w-[160px] min-[2200px]:h-[100px]'/>
             </Link>
