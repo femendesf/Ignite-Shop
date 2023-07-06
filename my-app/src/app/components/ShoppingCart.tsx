@@ -104,7 +104,7 @@ export function ShoppingCart(){
                             </button>
                         </div>
                     </DropdownMenu.Item>
-                    <DropdownMenu.Item className='flex gap-6 mt-8 items-center'>
+                    <DropdownMenu.Item className='flex gap-6 mt-8 items-center outline-none'>
 
                         <div 
                             className='
@@ -152,7 +152,8 @@ export function ShoppingCart(){
                             </button>
                         </div>
                     </DropdownMenu.Item>
-                    <DropdownMenu.Item className='flex gap-6 mt-8 items-center'>
+                    
+                    <DropdownMenu.Item className='flex gap-6 mt-8 items-center outline-none'>
 
                         <div 
                             className='
@@ -200,7 +201,7 @@ export function ShoppingCart(){
                             </button>
                         </div>
                     </DropdownMenu.Item>
-                
+                    
                     <div className='
                         mt-48
                         max-[1360px]:mt-28
