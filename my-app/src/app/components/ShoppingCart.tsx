@@ -45,6 +45,9 @@ export function ShoppingCart(){
                         px-12
                         gap-6
                         py-3
+                       
+                        shadow-2xl
+                        shadow-black
                         '
                 >
                     <div>
