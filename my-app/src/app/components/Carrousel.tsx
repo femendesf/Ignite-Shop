@@ -71,11 +71,10 @@ const [loaded, setLoaded] = useState(false)
                     flex
                     items-center
                     justify-center
-                   
-                   
+                    max-[3080px]:h-[480px]
                   "
                 >
-                  <Image src={product.imageUrl} alt="" width={520} height={480} className="object-cover" />
+                  <Image src={product.imageUrl} alt="" width={520} height={480} className="object-cover max-[3080px]:w-[480px] max-[3080px]:h-[420px] " />
       
                   <footer
                     className="

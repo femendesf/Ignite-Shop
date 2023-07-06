@@ -4,10 +4,17 @@ import Image from 'next/image';
 import { Handbag } from 'phosphor-react';
 
 import camisa1 from '../../assets/Shirt/1.png'
+import closeMenuSvg from '../../assets/closeMenu.svg'
+import { useState } from 'react';
 
 export function ShoppingCart(){
+    const [isOpen, setIsOpen] = useState(false)
+
+    function closeMenu(){
+        setIsOpen(!isOpen)
+    }
     return(
-        <DropdownMenu.Root>
+        <DropdownMenu.Root open={isOpen} onOpenChange={setIsOpen}>
             <DropdownMenu.Trigger 
                 className='
                     bg-gray800
@@ -24,24 +31,32 @@ export function ShoppingCart(){
                 <Handbag size={24} className='min-[2200px]:w-[60px]'/>
             </DropdownMenu.Trigger>
 
-            <DropdownMenu.Portal>
+            <DropdownMenu.Portal className='h-[1200px]'>
                 <DropdownMenu.Content 
                     className='
-                        bg-gray800
+                        bg-gray800                        
                         w-[30rem]
-                        h-[62rem]
+                        h-[58rem]
+                        max-[1380px]:h-[630px]
                         relative
-                        top-[-90px]
+                        top-[-120px]
+                        max-[1380px]:top-[-90px]
                         overflow-auto
                         px-12
                         gap-6
                         py-3
                         '
                 >
-                    <button className='mt-6 '>X</button>
+                    <div>
+
+                    </div>
+                    <button className='mt-6 ml-[90%]' onClick={closeMenu}>
+                        {<Image alt='x' src={closeMenuSvg} width={16} height={16}/>}
+                    </button>
+                  
                     <h1 className='mt-6 text-lg'>Sacola de compras</h1>
 
-                    <DropdownMenu.Item className='flex gap-6 mt-8 items-center'>
+                    <DropdownMenu.Item className='flex gap-6 mt-8 items-center outline-none'>
 
                         <div 
                             className='
@@ -185,60 +200,10 @@ export function ShoppingCart(){
                             </button>
                         </div>
                     </DropdownMenu.Item>
-                    <DropdownMenu.Item className='flex gap-6 mt-8 items-center'>
-
-                        <div 
-                            className='
-                                w-[102px]
-                                h-[93px]
-                                max-[1360px]:w-[80px]
-                                max-[1390px]:h-[70px]
-                                bg-gradient-to-b from-[#1ea483_0%] to-[#7465d4_100%]
-                                rounded-lg
-                                flex
-                                items-center
-                                justify-center
-                                '
-                        >
-                            <Image src={camisa1} width={94} height={94} alt='' className='max-[1360px]:w-[70px] max-[1360px]:h-[70px]'/>
-                        </div>
-                        
-                        <div className='flex
-                            flex-col
-                            justify-start
-                            gap-1'
-                        >
-                            <h2 className='
-                                text-md
-                                max-[1360px]:text-base
-                                text-gray300
-                                '
-                            >
-                                Camiseta Beyond the Limits
-                            </h2>
-
-                            <span className='text-md  max-[1360px]:text-base'>R$79,90</span>
-
-                            <button className='
-                                w-[65px]
-                                text-base
-                                max-[1360px]:text-[14px]
-                                text-green500
-                                font-bold
-                                hover:text-green300
-                                
-                                '
-                            >
-                                Remover
-                            </button>
-                        </div>
-                    </DropdownMenu.Item>
-
-                    
-                    
+                
                     <div className='
                         mt-48
-                        max-[1360px]:mt-16
+                        max-[1360px]:mt-28
                         flex
                         justify-between'
                     >
@@ -266,7 +231,7 @@ export function ShoppingCart(){
                         text-[18px]
                         text-white
                         hover:bg-green300
-                        mb-12
+                        mb-10                      
                         '
                         
                     >
