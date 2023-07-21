@@ -17,7 +17,7 @@ const robotoNormal = Roboto({
   subsets: ['latin']
 })
 
-const stripeKey = loadStripe(process.env.STRIPE_PUBLIC_KEY!)
+const stripeKey = process.env.STRIPE_PUBLIC_KEY!
 
 export default function RootLayout({
   children,
@@ -43,7 +43,7 @@ export default function RootLayout({
         <CartProvider
           mode="payment"
           cartMode="client-only"
-          stripe={stripeKey as unknown as string}
+          stripe={stripeKey}
           successUrl='http://localhost:3000/success'
           cancelUrl="twitter.com/dayhaysoos"
           currency="BRL"

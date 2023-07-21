@@ -26,7 +26,7 @@ export function Carrousel({ products }: CarrouselProps) {
   const [currentSlide, setCurrentSlide] = useState(0)
   const [loaded, setLoaded] = useState(false)
 
-  const { addItem } = useShoppingCart() as any
+  const { addItem } = useShoppingCart()
 
   function handleButtonBuy(){
     alert("BOTÂO CLICADO")
