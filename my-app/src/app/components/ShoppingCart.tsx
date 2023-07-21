@@ -5,10 +5,14 @@ import { Handbag } from 'phosphor-react';
 
 import camisa1 from '../../assets/Shirt/1.png'
 import closeMenuSvg from '../../assets/closeMenu.svg'
+
 import { useState } from 'react';
+import { useShoppingCart } from 'use-shopping-cart';
 
 export function ShoppingCart(){
     const [isOpen, setIsOpen] = useState(false)
+
+
 
     function closeMenu(){
         setIsOpen(!isOpen)
@@ -222,7 +226,7 @@ export function ShoppingCart(){
                         font-bold'
                     >
                         <span className='mt-2 text-md max-[1360px]:text-base'>Valor total</span>
-                        <span className='text-xl max-[1360px]:text-base'>R$ 270,00</span>
+                        <span className='text-xl max-[1360px]:text-base'>R$00</span>
                     </div>
 
                     <button className='

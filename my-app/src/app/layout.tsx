@@ -1,18 +1,23 @@
 import { Roboto } from 'next/font/google'
 
 import Image from 'next/image'
-
 import logoImage from "../assets/logo.svg"
 
+import { CartProvider } from 'use-shopping-cart'
 
 import './global.css'
 import Link from 'next/link'
+
 import { ShoppingCart } from './components/ShoppingCart'
- 
+
+import { loadStripe } from "@stripe/stripe-js";
+
 const robotoNormal = Roboto({
   weight: '400',
   subsets: ['latin']
 })
+
+const stripeKey = loadStripe(process.env.STRIPE_PUBLIC_KEY!)
 
 export default function RootLayout({
   children,
@@ -32,10 +37,23 @@ export default function RootLayout({
            
            <ShoppingCart/>
           </header>
-          {children}
+         
         </div>
         
+        <CartProvider
+          mode="payment"
+          cartMode="client-only"
+          stripe={stripeKey as unknown as string}
+          successUrl='http://localhost:3000/success'
+          cancelUrl="twitter.com/dayhaysoos"
+          currency="BRL"
+          shouldPersist
+        >
+           {children}
+        </CartProvider>
+         
         </body>
     </html>
   )
 }
+console.log(CartProvider)

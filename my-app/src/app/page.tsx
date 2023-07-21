@@ -4,7 +4,7 @@ import { stripe } from "@/lib/stripe"
 import Stripe from "stripe"
 
 import { Metadata } from 'next'
-
+import { DebugCart } from "use-shopping-cart"
 export const metadata: Metadata = {
   title: 'Home | Ignite-Shop',
 }
@@ -32,6 +32,9 @@ export default async function Home() {
   });
  
   return (
-      <Carrousel products={products}/>
+      <div>
+        <Carrousel products={products}/>
+      </div>
+      
   )
 }

@@ -7,6 +7,7 @@ import { useKeenSlider } from 'keen-slider/react'
 import 'keen-slider/keen-slider.min.css'
 import { Handbag } from 'phosphor-react'
 import { useState } from "react"
+import { useShoppingCart } from "use-shopping-cart"
 
 
 interface Product {
@@ -22,8 +23,10 @@ interface CarrouselProps {
 
 export function Carrousel({ products }: CarrouselProps) {
   
-const [currentSlide, setCurrentSlide] = useState(0)
-const [loaded, setLoaded] = useState(false)
+  const [currentSlide, setCurrentSlide] = useState(0)
+  const [loaded, setLoaded] = useState(false)
+
+  const { addItem } = useShoppingCart() as any
 
   function handleButtonBuy(){
     alert("BOTÂO CLICADO")
