@@ -1,20 +1,22 @@
 'use client'
 
 import Link from "next/link"
-import Image from "next/image"
 
 import { useKeenSlider } from 'keen-slider/react'
 import 'keen-slider/keen-slider.min.css'
 import { Handbag } from 'phosphor-react'
 import { useState } from "react"
+
 import { useShoppingCart } from "use-shopping-cart"
 
+import ImageComponent from "./ImageComponent"
 
 interface Product {
   id: string; 
   name: string;
   imageUrl: string;
   price: number | null;
+  defaultPriceId: string;
 }
 
 interface CarrouselProps {
@@ -28,8 +30,28 @@ export function Carrousel({ products }: CarrouselProps) {
 
   const { addItem } = useShoppingCart()
 
-  function handleButtonBuy(){
-    alert("BOTÂO CLICADO")
+  function handleButtonBuy(id: string) {
+    
+    const productToAdd = products.find((product) => product.id === id);
+
+    if (productToAdd) {
+      if (productToAdd.price !== null) {
+      
+        addItem({
+          sku: id,
+          name: productToAdd.name,
+          price: productToAdd.price,
+          image: productToAdd.imageUrl,
+          quantity: 1,
+          currency: 'BRL',
+          price_id:  productToAdd.defaultPriceId
+          
+        });
+
+      } else {
+        console.error("Cannot add product to cart. Price is null.");
+      }
+    }
   }
 
   const [sliderRef, instanceRef] = useKeenSlider({
@@ -37,8 +59,6 @@ export function Carrousel({ products }: CarrouselProps) {
       perView: 2,
       spacing: 48,
       origin: "center"
-
-  
     },
     initial: 0,
     slideChanged(slider) {
@@ -63,26 +83,34 @@ export function Carrousel({ products }: CarrouselProps) {
         >
         
           {products.map((product) =>(
-              
-              <Link href={`/products/${product.id}`} className="keen-slider__slide w-[560px]" id="link" key={product.id}>
-                <div
-                  className="
-                    bg-gradient-to-b from-[#1ea483_0%] to-[#7465d4_100%]
-                    rounded-lg
-                    relative
-                    overflow-hidden
-                    flex
-                    items-center
-                    justify-center
-                    max-[3080px]:h-[480px]
-                  "
-                >
-                  <Image src={product.imageUrl} alt="" width={520} height={480} className="object-cover max-[3080px]:w-[480px] max-[3080px]:h-[420px] " />
-      
-                  <footer
+              <div className="keen-slider__slide " id="link" key={product.id}>
+
+                <Link href={`/products/${product.id}`}>
+                  <div
+                    className="
+                      bg-gradient-to-b from-[#1ea483_0%] to-[#7465d4_100%]
+                      rounded-lg
+                      relative
+                      overflow-hidden
+                      flex
+                      items-center
+                      justify-center
+                      max-[3080px]:h-[480px]
+                    "
+                  >
+                    <ImageComponent 
+                      src={product.imageUrl}
+                      width={520}
+                      height={480}
+                      style="object-cover max-[3080px]:w-[480px] max-[3080px]:h-[420px] "
+                    />
+                  </div>
+                </Link>
+
+                <footer
                     className="
                       absolute
-                      bottom-1
+                      bottom-[6.5rem]
                       left-1
                       right-1
                       rounded-md
@@ -93,7 +121,7 @@ export function Carrousel({ products }: CarrouselProps) {
                       whitespace-nowrap
                       gap-2
 
-                      translate-y-full
+                      translate-y-1/3
                       opacity-0
                       transition-all
                       transition-transform-[0.2s]
@@ -113,7 +141,7 @@ export function Carrousel({ products }: CarrouselProps) {
                     </div>
 
                     <button 
-                      onClick={handleButtonBuy}
+                      onClick={() => handleButtonBuy(product.id)}
                       className="
                         w-14
                         h-14
@@ -130,10 +158,8 @@ export function Carrousel({ products }: CarrouselProps) {
                       <Handbag size={32} weight="bold" className=" max-[1050px]:w-[22px]"/>
                     </button>
                     
-                  </footer>
-                </div>
-              </Link>
-        
+                </footer>
+              </div>
             )
             
           )}
@@ -170,7 +196,8 @@ function Arrow(props: {
   left?: boolean
   onClick: (e: any) => void
 }) {
-  const disabled = props.disabled ? " arrow--disabled" : ""
+  const disabled = props.disabled ? "arrow--disabled" : ""
+
   return (
     <svg
       onClick={props.onClick}

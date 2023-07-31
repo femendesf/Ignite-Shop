@@ -37,7 +37,4 @@
     .arrow--right{
         @apply left-auto right-2 bg-gradient-to-r from-transparent to-gray900 mr-[-10px]
     }
-
-
-
 }

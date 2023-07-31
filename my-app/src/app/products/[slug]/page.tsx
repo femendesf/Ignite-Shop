@@ -25,7 +25,7 @@ const fetchProducts = async ({ params }: PageProductProps): Promise<ProductProps
   })
 
   const price = response.default_price as Stripe.Price;
-
+ 
   const product: ProductProps = {
     id: response.id,
     name: response.name,
@@ -49,8 +49,7 @@ export async function generateMetadata({ params }: PageProductProps) {
 
 export default async function Products({ params }: PageProductProps) {
 
-  const product = await fetchProducts({ params }); // Call the function with the required argument and await the result
-
+  const product = await fetchProducts({ params }); 
   return (
     <InfoProduct product={product} />
   )

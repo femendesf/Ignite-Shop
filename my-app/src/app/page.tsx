@@ -4,7 +4,7 @@ import { stripe } from "@/lib/stripe"
 import Stripe from "stripe"
 
 import { Metadata } from 'next'
-import { DebugCart } from "use-shopping-cart"
+
 export const metadata: Metadata = {
   title: 'Home | Ignite-Shop',
 }
@@ -22,15 +22,16 @@ export default async function Home() {
   const products : any[] = response.data.map((product: any) : any => {
 
     const price = product.default_price as Stripe.Price;
-
+    
     return {
       id: product.id,
       name: product.name,
       imageUrl: product.images[0],
       price: price.unit_amount,
+      defaultPriceId: price.id
     };
   });
- 
+
   return (
       <div>
         <Carrousel products={products}/>

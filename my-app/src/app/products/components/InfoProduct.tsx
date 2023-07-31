@@ -1,47 +1,36 @@
 'use client'
 
 import Image from "next/image"
-import axios from 'axios'
-import { useState } from "react";
+
+import { useShoppingCart } from "use-shopping-cart";
 
 interface InfoProductProps{
+
     product:{
         id: string; 
         name: string;
         imageUrl: string;
         price: number | null;
         description: string | null,
-        defaultPriceId: string
+        defaultPriceId: string;
     }
 }
 export function InfoProduct({product}: InfoProductProps){
 
-    // const exemplo: const router = useRouter()
-    const [isCreatingCheckoutSession, setIsCreatingCheckoutSession] = useState(false)
+    
+    const { addItem } = useShoppingCart()
 
-    async function handlerBuyProduct(){
-        try{
-            const response =  await axios.post('/api/checkout', {
-                priceId: product.defaultPriceId
-            })
-
-            setIsCreatingCheckoutSession(true)
-
-            const {checkoutUrl} = response.data
-
-            window.location.href = checkoutUrl 
-
-            /*Como é uma rota externa, esta sendo usado o window.location.href
-                Caso fosse uma rota interna, teria que usar o useRouter e dar uma router.push
-
-                exemplo:
-
-                router.push('/checkout')
-            */
-        }catch(err){
-            alert(err)
-            setIsCreatingCheckoutSession(false)
-        }
+    function handlerBuyProduct(id: string){
+       
+        addItem({
+          sku:id,
+          name: product.name,
+          price: product.price!,
+          image: product.imageUrl,
+          quantity: 1,
+          currency: 'BRL',
+          price_id: product.defaultPriceId
+        })
     }
 
     return(
@@ -56,10 +45,9 @@ export function InfoProduct({product}: InfoProductProps){
                 mx-auto
                 max-[1520px]:w-[980px]
                 max-[1520px]:h-[480px]
-                
             "
         >
-
+            
         <div
             id="ImageContainer"
             className="
@@ -121,7 +109,6 @@ export function InfoProduct({product}: InfoProductProps){
             </p>
 
             <button
-                disabled={isCreatingCheckoutSession}
                 className="
                     mt-auto
                     bg-green500
@@ -131,15 +118,10 @@ export function InfoProduct({product}: InfoProductProps){
                     text-md
 
                     hover:bg-green300
-
-                    disabled:bg-opacity-60
-                    disabled:cursor-not-allowed
                 "
-               
-                onClick={handlerBuyProduct}
-                
+                onClick={() => handlerBuyProduct(product.id)}
             >
-                Comprar agora
+                Colocar na sacola
             </button>
         </div>
 

@@ -1,9 +1,9 @@
 import { stripe } from "@/lib/stripe";
-import Image from "next/image";
 import Link from "next/link";
 import Stripe from "stripe";
 import {redirect} from 'next/navigation'
 import { Metadata } from 'next'
+import ImageComponent from "../components/ImageComponent";
 
 interface SessionProp{
     searchParams:{
@@ -17,8 +17,8 @@ export const metadata: Metadata = {
       index: false,
     }
 }
-export default 
-async function Success({searchParams} : SessionProp){
+
+export default async function Success({searchParams} : SessionProp){
 
     const sessionId = searchParams.session_id
 
@@ -33,7 +33,8 @@ async function Success({searchParams} : SessionProp){
     })
 
     const customerName = session.customer_details?.name
-    const product = session.line_items?.data[0].price?.product as Stripe.Product
+    const product = session.line_items?.data
+    let totQuantity = 0
     
     return(
         <main id="SuccessContainer"
@@ -52,38 +53,51 @@ async function Success({searchParams} : SessionProp){
                 Compra efetuada
             </h1>
 
-            <div id="ImageContainer"
-                className="
-                    w-full
-                    max-w-[130px]
-                    h-36
-                    bg-gradient-to-b from-[#1ea483_0%] to-[#7465d4_100%]
-                    rounded-lg
-                    p-1
-                    flex
-                    items-center
-                    justify-center
-                    mt-16
-                "
-            >
-                <Image alt="" src={product.images[0]} width={130} height={144}
-                    className="
-                        object-cover
-                    "
-                />
-                    
-            </div>
+            <div className="flex items-center justify-center ml-[-50px]">
 
-            <p className="
-                text-xl
-                text-gray300
-                max-w-[560px]
-                text-center
-                mt-8
-                "
-            >
-                Uhuul <strong> {customerName}</strong>, sua <strong>{product.name}</strong> já está a caminho da sua casa. 
-            </p>
+            {product?.map((item) => {
+
+                const productData = item.price?.product as Stripe.Product
+                const productImage = productData.images[0]
+
+                totQuantity = totQuantity + item.quantity!
+
+                return(
+                    <div 
+                        key={item.id}
+                        id="ImageContainer"
+                        className="
+                            w-36
+                            h-36
+                            mr-[-50px]
+                            bg-gradient-to-b from-[#1ea483_0%] to-[#7465d4_100%]
+                            p-1
+                            flex
+                            items-center
+                            justify-center
+                            mt-16
+                            rounded-full
+                            
+                            shadow-2xl
+                        "
+                    >
+                        <ImageComponent src={productImage} width={130} height={144} style={"object-cover"}/>
+                        
+                    </div>
+                )
+            })}
+            </div>
+             
+                <p className="
+                    text-xl
+                    text-gray300
+                    max-w-[560px]
+                    text-center
+                    mt-8
+                    "
+                >
+                    Uhuul <strong>{customerName}</strong>, sua compra de <strong>{totQuantity}</strong> {product?.length! > 1 ? 'camisetas' : 'camiseta'} já está a caminho da sua casa. 
+                </p>
 
             <Link href="" 
                 className="
