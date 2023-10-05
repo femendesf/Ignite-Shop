@@ -24,7 +24,7 @@ Neste desafio foi desenvolvido um e-commerce, onde o usuário pode fazer a compr
 ---
 
 ### Access project:
-`npm my-app`
+`cd my-app`
 
 ### Install project:
 `npm install`
