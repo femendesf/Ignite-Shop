@@ -29,5 +29,9 @@ Neste desafio foi desenvolvido um e-commerce, onde o usuário pode fazer a compr
 ### Install project:
 `npm install`
 
+### create file env.local and add your stripe key:
+`STRIP_PUBLIC_KEY=******`
+`STRIP_SECRET_KEY=******`
+
 ### Start project:
 `npm run dev`
